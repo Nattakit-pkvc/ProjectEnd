@@ -1,0 +1,50 @@
+#include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h>
+
+const char* ssid = "TECNO POVA 6 Pro 5G";
+const char* password = "14092544";
+const char* host = "api.line.me";
+const int httpsPort = 443;
+
+// ใส่ LINE Access Token ของคุณ
+String accessToken = "LSmXROaNyWBDB6CXvsrQnXSE3vgX/oObcIaxGwSkrwS4V2V24IAl0Eusz2ZM3fiX0qcw5ifzMh8NfnPzviOUFc66UgdDDD+CmThQZH1kjmbH5DiQScPY2wa19CrOxgRE9sfMgeFBcCLb0G/uzjEHJgdB04t89/1O/w1cDnyilFU=LSmXROaNyWBDB6CXvsrQnXSE3vgX/oObcIaxGwSkrwS4V2V24IAl0Eusz2ZM3fiX0qcw5ifzMh8NfnPzviOUFc66UgdDDD+CmThQZH1kjmbH5DiQScPY2wa19CrOxgRE9sfMgeFBcCLb0G/uzjEHJgdB04t89/1O/w1cDnyilFU=";
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+  
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  
+  Serial.println("WiFi Connected!");
+}
+
+void sendLineMessage(String message) {
+  WiFiClientSecure client;
+  client.setInsecure();  // ข้ามการตรวจสอบ SSL (ESP8266)
+
+  if (!client.connect(host, httpsPort)) {
+    Serial.println("Connection failed");
+    return;
+  }
+
+  String url = "/v2/bot/message/push";
+  String payload = "{\"to\":\"Cf1f5aefc45f33c82d8bc303aa984fdef\",\"messages\":[{\"type\":\"text\",\"text\":\"" + message + "\"}]}";
+  
+  String request = "POST " + url + " HTTP/1.1\r\n" +
+                   "Host: " + String(host) + "\r\n" +
+                   "Authorization: Bearer " + accessToken + "\r\n" +
+                   "Content-Type: application/json\r\n" +
+                   "Content-Length: " + String(payload.length()) + "\r\n\r\n" +
+                   payload;
+  
+  client.print(request);
+  Serial.println("Message Sent!");
+}
+
+void loop() {
+  sendLineMessage("Hello Test 1 2 3");
+  delay(30000);  // ส่งทุกๆ 60 วินาที
+}
