@@ -7,7 +7,7 @@ const char* host = "api.line.me";
 const int httpsPort = 443;
 
 // ใส่ LINE Access Token ของคุณ
-String accessToken = "LSmXROaNyWBDB6CXvsrQnXSE3vgX/oObcIaxGwSkrwS4V2V24IAl0Eusz2ZM3fiX0qcw5ifzMh8NfnPzviOUFc66UgdDDD+CmThQZH1kjmbH5DiQScPY2wa19CrOxgRE9sfMgeFBcCLb0G/uzjEHJgdB04t89/1O/w1cDnyilFU=LSmXROaNyWBDB6CXvsrQnXSE3vgX/oObcIaxGwSkrwS4V2V24IAl0Eusz2ZM3fiX0qcw5ifzMh8NfnPzviOUFc66UgdDDD+CmThQZH1kjmbH5DiQScPY2wa19CrOxgRE9sfMgeFBcCLb0G/uzjEHJgdB04t89/1O/w1cDnyilFU=";
+String accessToken = "JFjBPe0NShgsBQmiQmH86QCu/QPrKklOMbVnf7ClhHuSQYlkDo2PCC/c+1PnUsmYzAB+98/Vh+eswDl8xCUFp6LE47t5vIL3FGDsju7YbG1AOINHqxllreUAZS7smEt69sFR9OvoZIw16gbukXXZkwdB04t89/1O/w1cDnyilFU=";
 
 void setup() {
   Serial.begin(115200);
@@ -31,7 +31,8 @@ void sendLineMessage(String message) {
   }
 
   String url = "/v2/bot/message/push";
-  String payload = "{\"to\":\"Cf1f5aefc45f33c82d8bc303aa984fdef\",\"messages\":[{\"type\":\"text\",\"text\":\"" + message + "\"}]}";
+  String payload = "{\"to\":\"Cfef216e4298635f6cbe01dfffa7bb1a6\",\"messages\":[{\"type\":\"text\",\"text\":\"" + message + "\"}]}";
+  
   
   String request = "POST " + url + " HTTP/1.1\r\n" +
                    "Host: " + String(host) + "\r\n" +
